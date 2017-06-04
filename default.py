@@ -82,7 +82,8 @@ def updateOwnProfile():
                 break
         prefs = os.path.join(profileFolder, 'Default', 'Preferences')
         # space for non existing controls. Not sure why it needs it, but it does on my setup
-        top_margin = 30
+        #top_margin = 30
+        top_margin = 0
 
         with open(prefs, "rb+") as prefsfile:
             import json
@@ -90,8 +91,11 @@ def updateOwnProfile():
             prefs_browser = prefsdata.get('browser', {})
             prefs_window_placement = prefs_browser.get('window_placement', {})
             prefs_window_placement['always_on_top'] = True
+            prefs_window_placement['maximized'] = True
             prefs_window_placement['top'] = top_margin
             prefs_window_placement['bottom'] = height-top_margin
+            prefs_window_placement['left'] = 0
+            prefs_window_placement['right'] = width
             prefs_window_placement['work_area_bottom'] = height
             prefs_window_placement['work_area_right'] = width
             prefsdata['browser'] = prefs_browser
@@ -187,6 +191,7 @@ def getFullPath(exePath, url, useKiosk, userAgent):
         launch.write('<html><body style="background:black"><script>window.location.href = "%s";</script></body></html>' % url)
 
     args+=['--start-maximized', '--disable-translate', '--disable-new-tab-first-run', '--no-default-browser-check', '--no-first-run', black_background]
+    #args+=['--no-first-run', black_background]
     return args
 
 def bringChromeToFront(pid):
@@ -268,12 +273,14 @@ def showSite(url, stopPlayback, kiosk, userAgent):
     else:
         params = getFullPath(exePath, url, kiosk, userAgent)
         s = subprocess.Popen(params, shell=False, creationflags=creationFlags, close_fds = True)
-        s.communicate()
+        # this causes Kodi to hang
+        #s.communicate()
 
         bringChromeToFront(s.pid)
 
-        xbmcplugin.endOfDirectory(pluginhandle)
-        xbmc.executebuiltin("ReplaceWindow(Programs,%s)" % ("plugin://"+addonID+"/"))
+        # What is the point of these?
+        #xbmcplugin.endOfDirectory(pluginhandle)
+        #xbmc.executebuiltin("ReplaceWindow(Programs,%s)" % ("plugin://"+addonID+"/"))
 
 
 def removeSite(title):
@@ -380,3 +387,4 @@ elif mode == 'editSite':
     editSite(url)
 else:
     index()
+
