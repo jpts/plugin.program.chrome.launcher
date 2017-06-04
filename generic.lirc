@@ -1,0 +1,54 @@
+#### BEGIN Generic controls
+begin
+    prog = irexec
+    button = PlayPause
+    repeat = 0
+    config = xte 'key space' -x:0
+end
+begin
+    prog = irexec
+    button = KEY_OK
+    repeat = 0
+    config = xte 'key Return' -x:0
+end
+begin
+    prog = irexec
+    button = KEY_UP
+    config = xte 'key Up' -x:0
+end
+begin
+    prog = irexec
+    button = KEY_DOWN
+    config = xte 'key Down' -x:0
+end
+begin
+    prog = irexec
+    button = KEY_LEFT
+    config = xte 'key Left' -x:0
+end
+begin
+    prog = irexec
+    button = KEY_RIGHT
+    config = xte 'key Right' -x:0
+end
+begin
+    prog = irexec
+    button = KEY_STOP
+    repeat = 0
+    config = xte 'key Escape' -x:0
+end
+begin
+    prog = irexec
+    button = KEY_POWER
+    repeat = 0
+    config = xte 'keydown Control_L' 'keydown Shift_L' 'key q' 'keyup Shift_L' 'keyup Control_L' -x:0
+end
+#begin
+#    prog = irexec
+#    button = KEY_FORWARD
+#    repeat = 0
+#    config = xte 'key shift-right Focus CurrentWindow
+#end
+
+#### END 
+
